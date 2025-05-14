@@ -11,77 +11,21 @@
             padding: 20px;
             font-family: 'Inter', sans-serif;
             background-color: #fce4ec; /* Light pink background */
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPGcgZmlsbD0iI2ZmZDJlZSIgZmlsbC1vcGFjaXR5PSIwLjMiPgogICAgICA8cGF0aCBkPSJNMjAgMEwyMCA0MCAwIDIwIDIwIDB6TTQwIDIwTDQwIDQwIDIwIDQwIDIwIDIwek0wIDIwTDQwIDIwIDIwIDQwIDAgMjB6Ii8+CiAgICA8L2c+CiAgPC9nPgo8L3N2Zz4='); /* Subtle pattern */
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPGcgZmlsbD0iI2ZmZDJlZSIgZmlsbC1vcGFhY2l0eSI9IjAuMyI+CiAgICAgIDxwYXRoIGQ9Ik0yMCAwTDIwIDQwIDAgMjAgMjAgMHpNMzAgMTBMMzAgMzAgMTAgMzAgMTAgMTAwek00MCAyMEw0MCA0MCAyMCA0MCAyMCAyMHpNMCAyMEw0MCAyMCAyMCA0MCAwIDIwMXoiLz4KICAgIDwvZz4KICA8L2c+Cjwvc3ZnPg=='); /* Re-added subtle background pattern */
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow: hidden; /* Prevent any scrolling */
-            position: relative; /* Needed for absolute positioning of heart container */
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+            position: relative;
         }
-
-        .heart-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none; /* Allow clicks to pass through */
-            z-index: 0; /* Behind the main content */
-        }
-
-        .heart {
-            position: absolute;
-            width: 15px; /* Slightly smaller for rain effect */
-            height: 15px; /* Slightly smaller for rain effect */
-            background-color: #ff69b4; /* Hot pink heart color */
-            transform: rotate(-45deg);
-            animation: rain linear infinite; /* Changed animation name */
-        }
-
-        .heart::before,
-        .heart::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: #ff69b4;
-            border-radius: 50%;
-        }
-
-        .heart::before {
-            left: -50%;
-        }
-
-        .heart::after {
-            top: -50%;
-        }
-
-        /* Updated animation for rain effect */
-        @keyframes rain {
-            0% {
-                transform: translateY(-10vh) rotate(-45deg);
-                opacity: 0;
-            }
-            10% {
-                 opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(110vh) rotate(-45deg); /* Fall beyond viewport */
-                opacity: 0;
-            }
-        }
-
 
         .container {
             width: 90%;
             max-width: 600px;
             text-align: center;
             position: relative;
-            z-index: 1; /* Ensure container is above background hearts */
+            z-index: 1; /* Ensure container is above potential background elements */
         }
 
         h1 {
@@ -95,16 +39,23 @@
             max-width: 400px; /* Max width for envelope */
             margin: 20px auto;
             cursor: pointer;
-            transition: transform 0.8s ease-in-out;
-            z-index: 2; /* Above the container */
+            transition: transform 0.8s ease-in-out, box-shadow 0.3s ease-in-out; /* Added box-shadow transition */
+            z-index: 2;
         }
+
+        /* Added hover effect */
+        .envelope-wrapper:hover {
+            transform: translateY(-10px); /* Slight lift on hover */
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+        }
+
 
         .envelope {
             position: relative;
             width: 100%;
             padding-bottom: 60%; /* Aspect ratio */
-            background-color: #ffb6c1; /* Cinnamoroll pink */
-            border-radius: 20px; /* More rounded */
+            background-color: #ffb6c1; /* Sanrio pink */
+            border-radius: 20px; /* Rounded corners */
             box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
             transition: transform 0.5s ease-in-out;
             border: 2px solid #ff99aa; /* Subtle border */
@@ -286,8 +237,6 @@
 </head>
 <body>
 
-    <div class="heart-container"></div>
-
     <div class="container">
         <h1>Tap the Envelope!</h1>
         <div class="envelope-wrapper" id="envelopeWrapper">
@@ -297,10 +246,10 @@
                 <div class="envelope-flap"></div>
                  <div class="envelope-seal"></div>
                 <div class="letter">
-                    <p>Hi baby, I know this is so random, but I just really wanted to say that I love you so much. You mean the world to me. You're not just my partner—you're my best friend, my peace, my everything. I really want this relationship to work, and I’m willing to do whatever it takes to keep us strong. I’ll do my best every day, just for you, for us.</p>
+                    <p>Hi baby, I know this is random, but I just really wanted to say that I love you so much. You mean the world to me. You're not just my partner—you’re my best friend, my peace, my everything. I really want this relationship to work, and I’m willing to do whatever it takes to keep us strong. I’ll do my best every day, just for you, for us.</p>
                     <p>I know I’ve made mistakes, and I’m truly sorry for the things I’ve done that hurt you. I never meant to make you feel that way. I promise I’ll learn from them and become better—for you and for this relationship. I want to be the kind of man who deserves someone like you. I want to grow old with you, make memories with you, and spend every single day by your side.</p>
                     <p>Baby, I love you so much. I just want us to be happy, to keep laughing, growing, and loving each other no matter what. And just so you know—I didn’t use GPT or anything (maybe just for a little grammar help), but every word comes straight from my heart.</p>
-                    <p>One more thing… I promise I won’t lie to you. I’m not hiding anything. If something’s on your mind, please don’t be afraid to tell me. I want you to feel safe and comfortable with me. I want to know you—your thoughts, your feelings, all of you. I never get tired of giving you the assurance you need until the room full of doubts in your head is gone. I just really love you, and I want this to last.</p>
+                    <p>One more thing… I promise I won’t lie to you. I’m not hiding anything. If something’s on your mind, please don’t be afraid to tell me. I want you to feel safe and comfortable with me. I want to know you—your thoughts, your feelings, all of you. I’ll never get tired of giving you the assurance you need until the room full of doubts in your head is gone. I love you so much!</p>
                 </div>
             </div>
         </div>
@@ -308,54 +257,10 @@
 
     <script>
         const envelopeWrapper = document.getElementById('envelopeWrapper');
-        const heartContainer = document.querySelector('.heart-container');
 
         envelopeWrapper.addEventListener('click', () => {
             envelopeWrapper.classList.toggle('open');
         });
-
-        // Function to create a single heart element
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-
-            // Randomize starting position (horizontal)
-            heart.style.left = Math.random() * 100 + 'vw';
-
-            // Randomize size slightly
-            const size = Math.random() * 10 + 10; // hearts between 10px and 20px for a rain effect
-            heart.style.width = size + 'px';
-            heart.style.height = size + 'px';
-
-            // Randomize animation duration for variety (faster for rain)
-            heart.style.animationDuration = Math.random() * 2 + 3 + 's'; // between 3s and 5s
-
-            // Randomize animation delay so they don't all start at once
-             heart.style.animationDelay = Math.random() * 4 + 's'; // up to 4s delay
-
-            heartContainer.appendChild(heart);
-
-            // Remove heart after it falls off screen to prevent performance issues
-            heart.addEventListener('animationiteration', () => {
-                heart.remove();
-                // Create a new heart immediately after one is removed
-                createHeart();
-            });
-             heart.addEventListener('animationend', () => {
-                heart.remove();
-                // Create a new heart immediately after one is removed
-                createHeart();
-            });
-        }
-
-        // Create a initial batch of hearts
-        const numberOfHearts = 50; // Increased number of hearts for rain effect
-        for (let i = 0; i < numberOfHearts; i++) {
-            createHeart();
-        }
-
-         // Periodically create new hearts to maintain density
-        setInterval(createHeart, 200); // Create a new heart every 200ms for denser rain
     </script>
 
 </body>
